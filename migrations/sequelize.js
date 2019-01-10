@@ -1,20 +1,8 @@
-const Sequelize = require('sequelize');
-const sequelize = new Sequelize('burgers_db_sequelize', 'root', 'root', {
-  "username": "root",
-  "password": "root",
-  "database": "burgers_db",
-  "host": "localhost",
-  "port": "8889",
-  "dialect": "mysql"
-}
-);
+// DATABASE
+var db = require('../config/database');
+var Burger = require('../models/burger');
 
-const Burger = sequelize.define('burger', {
-  burger_name: Sequelize.STRING,
-  devoured: Sequelize.BOOLEAN
-});
-
-sequelize
+db
   .authenticate()
   .then(() => {
     console.log('Connection has been established successfully.');
@@ -22,3 +10,13 @@ sequelize
   .catch(err => {
     console.error('Unable to connect to the database:', err);
   });
+
+// Burger.sync({ force: true }).then(() => {
+//   // Table created
+//   return Burger.create({
+//     burger_name: "Cheese Burger",
+//     devoured: false
+//   });
+// });
+
+// module.exports(Burger);
